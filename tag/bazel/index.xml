@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>bazel | 笼鹰的自习室</title><link>/tag/bazel/</link><atom:link href="/tag/bazel/index.xml" rel="self" type="application/rss+xml"/><description>bazel</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><copyright>This work by Jiaxing Chen is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. 陕公网安备 61010302000452号 © 2020</copyright><lastBuildDate>Wed, 07 Oct 2020 00:00:00 +0000</lastBuildDate><image><url>/images/icon_hu0ad9a760d4acc21697f10ad9ba07207a_233385_512x512_fill_lanczos_center_2.png</url><title>bazel</title><link>/tag/bazel/</link></image><item><title>bazel编译onos出错</title><link>/post/onos/</link><pubDate>Wed, 07 Oct 2020 00:00:00 +0000</pubDate><guid>/post/onos/</guid><description>&lt;h2 id="编译错误npm安装失败webgui_onos-gui-npm-install-failed">编译错误，npm安装失败：&lt;code>//web/gui:_onos-gui-npm-install failed&lt;/code>&lt;/h2>
+&lt;pre>&lt;code>ERROR: /home/onos/onos/web/gui/BUILD:96:1: Executing genrule //web/gui:_onos-gui-npm-install failed (Exit 1) bash failed: error executing command /bin/bash -c ... (remaining 1 argument(s) skipped)
+Use --sandbox_debug to see verbose messages from the sandbox
+Target //:onos failed to build
+Use --verbose_failures to see the command lines of failed build steps.
+INFO: Elapsed time: 1991.490s, Critical Path: 1876.35s
+INFO: 2419 processes: 2091 linux-sandbox, 328 worker.
+FAILED: Build did NOT complete successfully
+&lt;/code>&lt;/pre>
+&lt;p>解决方法参考
+&lt;a href="https://groups.google.com/a/onosproject.org/forum/#!topic/onos-dev/1fs11-NwIEk" target="_blank" rel="noopener">Google group&lt;/a> 或
+&lt;a href="https://blog.csdn.net/daihanglai7622/article/details/88642998" target="_blank" rel="noopener">CSDN&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>单独编译以查看log
+bazel build //web/gui:_onos-gui-npm-install &amp;ndash;verbose_failures &amp;ndash;sandbox_debug
+sar -n DEV 1 2000000000000 查看网速，因为运行bazel脚本实际上就是在配置、编译和安装环境。这个过程是需要下载东西的。卡住不动要么是被墙了，要么是命令行权限或者缺少依赖的软件（用apt装一下）
+sudo find / -name npm-install.out
+cat日志发现
+PhantomJS not found on PATH
+Downloading &lt;a href="https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-macosx.zip">https://github.com/Medium/phantomjs/releases/download/v2.1.1/phantomjs-2.1.1-macosx.zip&lt;/a>
+Saving to /var/folders/mh/2ptfthxj2qb49jscj1b0gjsm0000gn/T/phantomjs/phantomjs-2.1.1-macosx.zip
+Receiving&amp;hellip;
+一直卡死这，直到报错。
+原因是天朝网络：它的安装过程中要去 github 下载一个包，而 github release 文件放在亚马逊 aws 上（被墙了）。解决方法是借助淘宝镜像
+修改web/gui/BUILD
+&amp;quot; $$NPM $$NPM_ARGS install &amp;ndash;no-cache &amp;ndash;loglevel=error &amp;gt;npm-install.out 2&amp;gt;&amp;amp;1 &amp;amp;&amp;amp;&amp;quot;
+的前面新增一行
+&amp;quot; export PHANTOMJS_CDNURL=https://npm.taobao.org/mirrors/phantomjs &amp;amp;&amp;amp;&amp;quot;
+也可以手动下载拷贝到/tmp/phantomjs下。因为每次重启电脑该目录都会被删除。
+&lt;pre>&lt;code class="language-bash">cd ~/onos/tools/dev/bin/
+./onos-gen-bazel-project &amp;gt; /tmp/onos_bazelproject
+&lt;/code>&lt;/pre>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="导入intellij-idea出错">导入intellij idea出错&lt;/h2>
+&lt;p>如果是安装错误，是网络或墙
+如果是编译错误，很可能是bazel插件版本不对，intellij idea版本和插件版本有对应关系
+详情见：&lt;a href="https://plugins.jetbrains.com/plugin/8609-bazel/versions" target="_blank" rel="noopener">bazle plugin version&lt;/a>
+java.lang.NoClassDefFoundError: com/google/common/util/concurrent/internal/InternalFutureFailureAccess
+Caused by: java.lang.ClassNotFoundException: com.google.common.util.concurrent.internal.InternalFutureFailureAccess&lt;/p>
+&lt;p>Did you find this page helpful? Consider sharing it 🙌&lt;/p></description></item></channel></rss>
