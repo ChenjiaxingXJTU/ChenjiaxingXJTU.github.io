@@ -5,4 +5,8 @@
 &lt;li>高可用&lt;/li>
 &lt;li>大数据量高性能&lt;/li>
 &lt;/ol>
-&lt;h2 id="cassandra">Cassandra&lt;/h2></description></item></channel></rss>
+&lt;h2 id="cassandra">Cassandra&lt;/h2>
+&lt;h2 id="mysql">mysql&lt;/h2>
+&lt;h2 id="redis">redis&lt;/h2>
+&lt;h2 id="rocketmq">rocketmq&lt;/h2>
+&lt;h2 id="rabbitmq">rabbitmq&lt;/h2></description></item></channel></rss>
