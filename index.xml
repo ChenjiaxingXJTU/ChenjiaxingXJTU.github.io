@@ -21,7 +21,10 @@ Click on the &lt;strong>Slides&lt;/strong> button above to view the built-in sli
 &lt;h2 id="redis">redis&lt;/h2>
 &lt;h2 id="rocketmq">rocketmq&lt;/h2>
 &lt;h2 id="rabbitmq">rabbitmq&lt;/h2>
-&lt;h2 id="算法">算法&lt;/h2></description></item><item><title>笔记</title><link>/post/cs/note/</link><pubDate>Wed, 11 Nov 2020 22:46:52 +0800</pubDate><guid>/post/cs/note/</guid><description>&lt;p>NoSQL(not only sql)&lt;/p>
+&lt;h2 id="算法">算法&lt;/h2>
+&lt;h2 id="git">git&lt;/h2>
+&lt;p>git reset &amp;ndash;hard 丢弃工作区和暂存区&lt;/p>
+&lt;p>detach 分离头指针需要绑定到分支或tag，不然checkout出去会被清理&lt;/p></description></item><item><title>笔记</title><link>/post/cs/note/</link><pubDate>Wed, 11 Nov 2020 22:46:52 +0800</pubDate><guid>/post/cs/note/</guid><description>&lt;p>NoSQL(not only sql)&lt;/p>
 &lt;ol>
 &lt;li>易扩展&lt;/li>
 &lt;li>灵活的数据模型&lt;/li>
